@@ -1,396 +1,832 @@
-const skills = [
-  {
-    name: "Python",
-    level: "Data Analysis • Automation",
-  },
-  {
-    name: "SQL",
-    level: "Database • Data Queries",
-  },
-  {
-    name: "Power BI",
-    level: "Data Visualization",
-  },
-  {
-    name: "Pandas",
-    level: "Data Manipulation",
-  },
-  {
-    name: "Git & GitHub",
-    level: "Version Control",
-  },
-  {
-    name: "Data Engineering",
-    level: "Learning & Projects",
-  },
+"use client";
+
+import { useEffect, useState } from "react";
+
+const technologies = [
+    {
+        name: "Python",
+        category: "DATA ENGINEERING",
+        logo: "https://cdn.simpleicons.org/python/3776AB",
+    },
+    {
+        name: "SQL",
+        category: "DATA ENGINEERING",
+        logo: "https://cdn.simpleicons.org/postgresql/4169E1",
+    },
+    {
+        name: "Power BI",
+        category: "BI & ANALYTICS",
+        logo: "https://cdn.simpleicons.org/powerbi/F2C811",
+    },
+    {
+        name: "Pandas",
+        category: "DATA ANALYSIS",
+        logo: "https://cdn.simpleicons.org/pandas/150458",
+    },
+    {
+        name: "JavaScript",
+        category: "WEB · LEARNING",
+        logo: "https://cdn.simpleicons.org/javascript/F7DF1E",
+    },
+    {
+        name: "React",
+        category: "WEB · LEARNING",
+        logo: "https://cdn.simpleicons.org/react/61DAFB",
+    },
+    {
+        name: "Next.js",
+        category: "WEB · LEARNING",
+        logo: "https://cdn.simpleicons.org/nextdotjs/FFFFFF",
+    },
+    {
+        name: "TypeScript",
+        category: "WEB · LEARNING",
+        logo: "https://cdn.simpleicons.org/typescript/3178C6",
+    },
+    {
+        name: "Git",
+        category: "DEVELOPMENT",
+        logo: "https://cdn.simpleicons.org/git/F05032",
+    },
 ];
 
 const projects = [
-  {
-    number: "01",
-    category: "Web Development",
-    title: "The Wooorking",
-    description:
-      "Projet web réalisé dans le cadre de mon apprentissage du développement web et de la conception d'une expérience digitale.",
-    tags: ["Web", "Development", "GitHub"],
-    github: "https://github.com/Marwanerazzake/the-wooorking-",
-  },
-  {
-    number: "02",
-    category: "Data Engineering",
-    title: "Data Analysis Project",
-    description:
-      "Projet autour du nettoyage, de la préparation, de l'échantillonnage, des statistiques descriptives et de la visualisation des données.",
-    tags: ["Python", "Pandas", "Matplotlib"],
-    github: "#",
-  },
+    {
+        number: "01",
+        title: "The Wooorking",
+        type: "Web Development",
+        description:
+            "Projet de développement web réalisé dans le cadre de mon parcours.",
+        link: "https://github.com/Marwanerazzake/the-wooorking-",
+    },
+    {
+        number: "02",
+        title: "Data Analysis",
+        type: "Data & Analytics",
+        description:
+            "Nettoyage, préparation, échantillonnage, statistiques descriptives et visualisation des données.",
+        link: "#",
+    },
 ];
 
 export default function Home() {
-  return (
-    <main className="min-h-screen overflow-hidden bg-[#070707] text-white">
-      {/* NAVBAR */}
-      <nav className="fixed left-0 right-0 top-0 z-50 border-b border-white/10 bg-[#070707]/75 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
-          <a
-            href="#"
-            className="text-xl font-bold tracking-tight"
-          >
-            MR<span className="text-blue-500">.</span>
-          </a>
+    const [currentTech, setCurrentTech] = useState(0);
+    const [darkMode, setDarkMode] = useState(true);
+    const [language, setLanguage] = useState<"FR" | "EN">("FR");
 
-          <div className="hidden items-center gap-8 text-sm text-gray-400 md:flex">
-            <a href="#about" className="transition hover:text-white">
-              About
-            </a>
-            <a href="#skills" className="transition hover:text-white">
-              Skills
-            </a>
-            <a href="#projects" className="transition hover:text-white">
-              Projects
-            </a>
-            <a href="#contact" className="transition hover:text-white">
-              Contact
-            </a>
-          </div>
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentTech((prev) => (prev + 1) % technologies.length);
+        }, 2800);
 
-          <a
-            href="https://www.linkedin.com/in/marwan-rzzake-33270b3aa/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="rounded-full border border-white/15 px-5 py-2 text-sm transition hover:border-white/40 hover:bg-white hover:text-black"
-          >
-            LinkedIn
-          </a>
-        </div>
-      </nav>
+        return () => clearInterval(interval);
+    }, []);
 
-      {/* HERO */}
-      <section className="relative flex min-h-screen items-center px-6 pt-24">
-        <div className="absolute left-1/2 top-1/3 -z-10 h-[500px] w-[500px] -translate-x-1/2 rounded-full bg-blue-600/10 blur-[120px]" />
+    const isFrench = language === "FR";
 
-        <div className="mx-auto w-full max-w-6xl">
-          <div className="max-w-5xl">
-            <div className="animate-fade-in mb-8 inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-sm text-gray-300">
-              <span className="h-2 w-2 animate-pulse rounded-full bg-green-400" />
-              Data Engineering Student
-            </div>
+    return (
+        <main className={darkMode ? "site dark" : "site light"}>
 
-            <p className="animate-fade-in-delay mb-5 text-sm font-medium uppercase tracking-[0.35em] text-blue-500">
-              EST Fès • Morocco
-            </p>
+            {/* ================= NAVBAR ================= */}
 
-            <h1 className="animate-fade-in text-5xl font-bold leading-[0.95] tracking-tight sm:text-7xl lg:text-8xl">
-              Marouane
-              <br />
-              <span className="text-gray-500">Razzake.</span>
-            </h1>
+            <nav className="navbar">
+                <a href="#top" className="logo">
+                    MR<span>.</span>
+                </a>
 
-            <p className="animate-fade-in-delay-2 mt-8 max-w-2xl text-lg leading-8 text-gray-400">
-              Étudiant en Data Engineering passionné par la donnée,
-              la programmation et la création de solutions digitales
-              utiles.
-            </p>
+                <div className="nav-links">
+                    <a href="#about">
+                        {isFrench ? "À propos" : "About"}
+                    </a>
 
-            <div className="animate-fade-in-delay-2 mt-10 flex flex-col gap-4 sm:flex-row">
-              <a
-                href="#projects"
-                className="rounded-full bg-white px-8 py-4 text-center font-medium text-black transition duration-300 hover:-translate-y-1 hover:bg-gray-200"
-              >
-                Voir mes projets →
-              </a>
+                    <a href="#skills">
+                        {isFrench ? "Compétences" : "Skills"}
+                    </a>
 
-              <a
-                href="https://github.com/Marwanerazzake"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="rounded-full border border-white/15 px-8 py-4 text-center font-medium transition duration-300 hover:-translate-y-1 hover:bg-white/10"
-              >
-                GitHub
-              </a>
-            </div>
+                    <a href="#workflow">
+                        Workflow
+                    </a>
 
-            <div className="mt-14 flex flex-wrap gap-7 text-sm text-gray-500">
-              <span>📍 Casablanca</span>
-              <span>🎓 EST Fès</span>
-              <span>🇫🇷 Français</span>
-              <span>🇬🇧 English</span>
-            </div>
-          </div>
-        </div>
-      </section>
+                    <a href="#projects">
+                        {isFrench ? "Projets" : "Projects"}
+                    </a>
 
-      {/* ABOUT */}
-      <section
-        id="about"
-        className="border-t border-white/10 px-6 py-28"
-      >
-        <div className="mx-auto max-w-6xl">
-          <div className="grid gap-16 md:grid-cols-2">
-            <div>
-              <p className="text-sm uppercase tracking-[0.3em] text-blue-500">
-                01 / About
-              </p>
-
-              <h2 className="mt-5 text-4xl font-bold leading-tight sm:text-5xl">
-                Learning.
-                <br />
-                Building.
-                <br />
-                Improving.
-              </h2>
-            </div>
-
-            <div className="text-lg leading-8 text-gray-400">
-              <p>
-                Je suis étudiant à l&apos;EST Fès, spécialisé dans
-                l&apos;apprentissage du Data Engineering et des
-                technologies liées aux données.
-              </p>
-
-              <p className="mt-6">
-                Je développe progressivement mes compétences en
-                programmation, bases de données, analyse et
-                visualisation des données à travers différents projets.
-              </p>
-
-              <p className="mt-6">
-                Mon objectif est de construire une solide base
-                technique et de continuer à développer des projets
-                concrets.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* SKILLS */}
-      <section
-        id="skills"
-        className="border-t border-white/10 px-6 py-28"
-      >
-        <div className="mx-auto max-w-6xl">
-          <p className="text-sm uppercase tracking-[0.3em] text-blue-500">
-            02 / Skills
-          </p>
-
-          <h2 className="mt-5 text-4xl font-bold sm:text-5xl">
-            My toolkit.
-          </h2>
-
-          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {skills.map((skill, index) => (
-              <div
-                key={skill.name}
-                className="group rounded-3xl border border-white/10 bg-white/[0.03] p-7 transition duration-300 hover:-translate-y-2 hover:border-blue-500/40 hover:bg-white/[0.06]"
-              >
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-blue-500">
-                    0{index + 1}
-                  </span>
-
-                  <span className="text-gray-600 transition group-hover:text-blue-500">
-                    ↗
-                  </span>
+                    <a href="#contact">
+                        Contact
+                    </a>
                 </div>
 
-                <h3 className="mt-10 text-2xl font-semibold">
-                  {skill.name}
-                </h3>
+                <div className="nav-actions">
 
-                <p className="mt-3 text-sm text-gray-500">
-                  {skill.level}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* PROJECTS */}
-      <section
-        id="projects"
-        className="border-t border-white/10 px-6 py-28"
-      >
-        <div className="mx-auto max-w-6xl">
-          <p className="text-sm uppercase tracking-[0.3em] text-blue-500">
-            03 / Projects
-          </p>
-
-          <h2 className="mt-5 text-4xl font-bold sm:text-5xl">
-            Selected work.
-          </h2>
-
-          <div className="mt-12 grid gap-6 md:grid-cols-2">
-            {projects.map((project) => (
-              <article
-                key={project.number}
-                className="group rounded-[2rem] border border-white/10 bg-white/[0.03] p-8 transition duration-300 hover:-translate-y-2 hover:border-blue-500/30"
-              >
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-blue-500">
-                    {project.category}
-                  </span>
-
-                  <span className="text-sm text-gray-600">
-                    {project.number}
-                  </span>
-                </div>
-
-                <h3 className="mt-10 text-3xl font-bold">
-                  {project.title}
-                </h3>
-
-                <p className="mt-5 leading-7 text-gray-400">
-                  {project.description}
-                </p>
-
-                <div className="mt-7 flex flex-wrap gap-2">
-                  {project.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="rounded-full bg-white/10 px-3 py-1 text-xs text-gray-300"
+                    <button
+                        className="language-toggle"
+                        onClick={() => setLanguage(isFrench ? "EN" : "FR")}
                     >
-                      {tag}
-                    </span>
-                  ))}
+                        {language}
+                    </button>
+
+                    <button
+                        className="theme-toggle"
+                        onClick={() => setDarkMode(!darkMode)}
+                        aria-label="Change theme"
+                    >
+                        {darkMode ? "☼" : "☾"}
+                    </button>
+
+                    <a
+                        className="linkedin-button"
+                        href="https://www.linkedin.com/in/marwan-rzzake-33270b3aa/"
+                        target="_blank"
+                        rel="noreferrer"
+                    >
+                        LinkedIn ↗
+                    </a>
+
+                </div>
+            </nav>
+
+
+            {/* ================= HERO ================= */}
+
+            <section className="hero" id="top">
+
+                <div className="hero-left">
+
+                    <div className="eyebrow">
+                        <span className="status-dot"></span>
+                        DATA ENGINEERING STUDENT
+                    </div>
+
+                    <div className="hero-name-top">
+                        <span>MAROUANE RAZZAKE</span>
+                        <div className="yellow-line"></div>
+                    </div>
+
+                    <h1>
+                        {isFrench ? (
+                            <>
+                                JE CONSTRUIS
+                                <br />
+                                <span>AVEC LA DONNÉE.</span>
+                            </>
+                        ) : (
+                            <>
+                                I BUILD
+                                <br />
+                                <span>WITH DATA.</span>
+                            </>
+                        )}
+                    </h1>
+
+                    <p className="hero-description">
+                        {isFrench
+                            ? "Étudiant en Data Engineering, je développe mes compétences autour de la donnée, de la BI et des technologies web."
+                            : "Data Engineering student developing skills across data, BI and web technologies."}
+                    </p>
+
+                    <div className="hero-buttons">
+
+                        <a href="#projects" className="primary-button">
+                            {isFrench ? "Voir mes projets" : "View my projects"}
+                            <span>↗</span>
+                        </a>
+
+                        <a href="#workflow" className="secondary-button">
+                            {isFrench ? "Comment je travaille" : "How I work"}
+                        </a>
+
+                    </div>
+
                 </div>
 
-                {project.github !== "#" && (
-                  <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-8 inline-block text-sm font-medium underline underline-offset-4 transition hover:text-blue-400"
-                  >
-                    View project on GitHub →
-                  </a>
-                )}
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* EDUCATION */}
-      <section className="border-t border-white/10 px-6 py-28">
-        <div className="mx-auto max-w-6xl">
-          <p className="text-sm uppercase tracking-[0.3em] text-blue-500">
-            04 / Education
-          </p>
+                {/* TECHNOLOGY SLIDER */}
 
-          <div className="mt-10 rounded-[2rem] border border-white/10 bg-white/[0.03] p-8 md:p-10">
-            <div className="flex flex-col justify-between gap-8 md:flex-row">
-              <div>
-                <p className="text-sm text-gray-500">
-                  Établissement
+                <div className="hero-right">
+
+                    <div className="tech-header">
+                        <span>02 / TECHNOLOGIES</span>
+
+                        <span>
+                            {String(currentTech + 1).padStart(2, "0")} /{" "}
+                            {String(technologies.length).padStart(2, "0")}
+                        </span>
+                    </div>
+
+                    <div className="tech-stage" key={currentTech}>
+
+                        <div className="tech-logo-box">
+
+                            <img
+                                src={technologies[currentTech].logo}
+                                alt={technologies[currentTech].name}
+                            />
+
+                        </div>
+
+                        <div className="tech-information">
+
+                            <span>
+                                {technologies[currentTech].category}
+                            </span>
+
+                            <h2>
+                                {technologies[currentTech].name}
+                            </h2>
+
+                        </div>
+
+                    </div>
+
+                    <div className="tech-progress">
+
+                        <div
+                            className="tech-progress-bar"
+                            key={currentTech}
+                        ></div>
+
+                    </div>
+
+                    <div className="tech-meta">
+
+                        <div>
+                            <span>PROFILE</span>
+
+                            <strong>
+                                Data Engineering
+                                <br />
+                                Student
+                            </strong>
+                        </div>
+
+                        <div>
+                            <span>DOMAIN</span>
+
+                            <strong>
+                                DATA · BI
+                                <br />
+                                WEB
+                            </strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            {/* ================================================= */}
+            {/* PROFILE SECTION - PHOTO + PRESENTATION            */}
+            {/* ================================================= */}
+
+            <section className="profile-section" id="about">
+
+                <div className="profile-image-side">
+
+                    <div className="profile-image-wrapper">
+
+                        <img
+                            src="/profile.jpg"
+                            alt="Marouane Razzake"
+                            className="profile-image"
+                        />
+
+                        <div className="profile-image-overlay"></div>
+
+                        <div className="profile-image-grid"></div>
+
+                        <div className="profile-corner profile-corner-top"></div>
+                        <div className="profile-corner profile-corner-bottom"></div>
+
+                        <div className="profile-year">
+                            2026
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div className="profile-content">
+
+                    <div className="profile-top-line">
+
+                        <span className="profile-label">
+                            PROFILE / 2026
+                        </span>
+
+                        <span className="profile-domain">
+                            DATA ENGINEERING
+                        </span>
+
+                    </div>
+
+
+                    <div className="profile-title">
+
+                        <span className="profile-small-line"></span>
+
+                        <h2>
+                            {isFrench ? (
+                                <>
+                                    Je me spécialise dans la
+                                    <span> donnée,</span> l'analyse
+                                    et la construction de
+                                    solutions modernes.
+                                </>
+                            ) : (
+                                <>
+                                    I focus on
+                                    <span> data,</span> analytics
+                                    and building modern
+                                    digital solutions.
+                                </>
+                            )}
+                        </h2>
+
+                    </div>
+
+
+                    <p className="profile-description">
+
+                        {isFrench
+                            ? "Mon objectif est de transformer les données en informations utiles et en solutions concrètes. Je développe progressivement mes compétences en Data Engineering, Business Intelligence et technologies web."
+                            : "My goal is to transform data into useful information and practical solutions. I am progressively developing my skills in Data Engineering, Business Intelligence and web technologies."}
+
+                    </p>
+
+
+                    <div className="profile-details">
+
+                        <div className="profile-detail">
+
+                            <span>01</span>
+
+                            <div>
+                                <small>LOCATION</small>
+                                <strong>Casablanca, Morocco</strong>
+                            </div>
+
+                        </div>
+
+
+                        <div className="profile-detail">
+
+                            <span>02</span>
+
+                            <div>
+                                <small>EDUCATION</small>
+                                <strong>EST Fès</strong>
+                            </div>
+
+                        </div>
+
+
+                        <div className="profile-detail">
+
+                            <span>03</span>
+
+                            <div>
+                                <small>FOCUS</small>
+                                <strong>Data · BI · Web</strong>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div className="profile-bottom">
+
+                        <span>
+                            DATA ENGINEERING · BUSINESS INTELLIGENCE · WEB
+                        </span>
+
+                        <span className="profile-arrow">
+                            ↓
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            {/* ================= SKILLS ================= */}
+
+            <section className="section skills-section" id="skills">
+
+                <div className="section-heading">
+
+                    <span>02 / SKILLS</span>
+
+                    <h2>
+                        WHAT I
+                        <br />
+                        <em>WORK WITH.</em>
+                    </h2>
+
+                </div>
+
+
+                <div className="skills-groups">
+
+                    <div className="skill-group">
+
+                        <div className="skill-group-number">
+                            01
+                        </div>
+
+                        <div>
+
+                            <span className="skill-label">
+                                DATA ENGINEERING
+                            </span>
+
+                            <div className="skill-list">
+
+                                <span>Python</span>
+                                <span>SQL</span>
+                                <span>Pandas</span>
+                                <span>Data Cleaning</span>
+                                <span>Data Processing</span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div className="skill-group">
+
+                        <div className="skill-group-number">
+                            02
+                        </div>
+
+                        <div>
+
+                            <span className="skill-label">
+                                BI & ANALYTICS
+                            </span>
+
+                            <div className="skill-list">
+
+                                <span>Power BI</span>
+                                <span>Data Visualization</span>
+                                <span>Descriptive Statistics</span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div className="skill-group web-skill">
+
+                        <div className="skill-group-number">
+                            03
+                        </div>
+
+                        <div>
+
+                            <span className="skill-label">
+                                WEB TECHNOLOGIES
+                                <small> · LEARNING & BUILDING WITH</small>
+                            </span>
+
+                            <div className="skill-list">
+
+                                <span>HTML</span>
+                                <span>CSS</span>
+                                <span>JavaScript</span>
+                                <span>React</span>
+                                <span>Next.js</span>
+                                <span>TypeScript</span>
+                                <span>Git & GitHub</span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            {/* ================= WORKFLOW ================= */}
+
+            <section className="section workflow-section" id="workflow">
+
+                <div className="section-heading">
+
+                    <span>03 / HOW I WORK</span>
+
+                    <h2>
+                        AI /
+                        <br />
+                        <em>HUMAN.</em>
+                    </h2>
+
+                </div>
+
+
+                <div className="workflow-intro">
+
+                    <h3>
+                        J’utilise l’AI pour passer plus rapidement de
+                        l’ambiguïté à des solutions testées — sans déléguer
+                        les décisions qui définissent la qualité.
+                    </h3>
+
+                    <p>
+                        L’AI m’aide à explorer des options, challenger mes
+                        hypothèses et accélérer les tâches répétitives.
+                        Je reste responsable de l’architecture, de la qualité
+                        du code, de la sécurité et du résultat final.
+                    </p>
+
+                    <div className="human-check">
+
+                        <span>✓</span>
+
+                        <strong>
+                            Every output reviewed by a human
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div className="workflow-grid">
+
+                    <div className="workflow-card">
+                        <span>01</span>
+
+                        <div>
+                            <h3>Frame the context</h3>
+
+                            <p>
+                                Définir le problème, les contraintes,
+                                les utilisateurs et les critères de réussite.
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <div className="workflow-card">
+                        <span>02</span>
+
+                        <div>
+                            <h3>Explore & prototype</h3>
+
+                            <p>
+                                Utiliser l’AI pour comparer les approches,
+                                tester des idées et accélérer une première version.
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <div className="workflow-card">
+                        <span>03</span>
+
+                        <div>
+                            <h3>Build with precision</h3>
+
+                            <p>
+                                Combiner l’assistance de l’AI avec une
+                                architecture propre et un code maintenable.
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <div className="workflow-card">
+                        <span>04</span>
+
+                        <div>
+                            <h3>Verify before shipping</h3>
+
+                            <p>
+                                Relire, tester, vérifier et sécuriser chaque
+                                résultat avant de le considérer comme terminé.
+                            </p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div className="workflow-summary">
+
+                    <div>
+                        <span>01</span>
+                        <strong>Human direction</strong>
+                    </div>
+
+                    <div>
+                        <span>02</span>
+                        <strong>AI acceleration</strong>
+                    </div>
+
+                    <div>
+                        <span>03</span>
+                        <strong>Verified output</strong>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            {/* ================= PROJECTS ================= */}
+
+            <section className="section projects-section" id="projects">
+
+                <div className="section-heading">
+
+                    <span>04 / SELECTED WORK</span>
+
+                    <h2>
+                        PROJECTS
+                        <br />
+                        <em>& EXPERIMENTS.</em>
+                    </h2>
+
+                </div>
+
+
+                <div className="projects-list">
+
+                    {projects.map((project) => (
+
+                        <a
+                            className="project-row"
+                            href={project.link}
+                            target={project.link !== "#" ? "_blank" : undefined}
+                            rel={
+                                project.link !== "#"
+                                    ? "noreferrer"
+                                    : undefined
+                            }
+                            key={project.number}
+                        >
+
+                            <span className="project-number">
+                                {project.number}
+                            </span>
+
+                            <div className="project-main">
+
+                                <span>{project.type}</span>
+
+                                <h3>
+                                    {project.title}
+                                </h3>
+
+                                <p>
+                                    {project.description}
+                                </p>
+
+                            </div>
+
+                            <span className="project-arrow">
+                                ↗
+                            </span>
+
+                        </a>
+
+                    ))}
+
+                </div>
+
+            </section>
+
+
+            {/* ================= EDUCATION ================= */}
+
+            <section className="section education-section">
+
+                <div className="section-heading">
+
+                    <span>05 / EDUCATION</span>
+
+                    <h2>
+                        LEARNING
+                        <br />
+                        <em>BY BUILDING.</em>
+                    </h2>
+
+                </div>
+
+
+                <div className="education-card">
+
+                    <div className="education-year">
+                        2026
+                    </div>
+
+                    <div>
+
+                        <span>
+                            EST FÈS
+                        </span>
+
+                        <h3>
+                            Data Engineering
+                        </h3>
+
+                        <p>
+                            Formation orientée données, programmation,
+                            analyse et ingénierie des données.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            {/* ================= CONTACT ================= */}
+
+            <section className="section contact-section" id="contact">
+
+                <div className="contact-label">
+                    06 / CONTACT
+                </div>
+
+                <h2>
+                    LET&apos;S BUILD
+                    <br />
+                    <em>SOMETHING.</em>
+                </h2>
+
+                <p>
+                    {isFrench
+                        ? "Un projet, une idée ou simplement envie d’échanger ?"
+                        : "Have a project, an idea or simply want to connect?"}
                 </p>
 
-                <h3 className="mt-2 text-3xl font-bold">
-                  EST Fès
-                </h3>
+                <a
+                    className="contact-email"
+                    href="mailto:marwanrzaak55@gmail.com"
+                >
+                    marwanrzaak55@gmail.com ↗
+                </a>
 
-                <p className="mt-3 text-gray-400">
-                  Data Engineering
-                </p>
-              </div>
+                <div className="contact-links">
 
-              <div>
-                <p className="text-sm text-gray-500">
-                  Location
-                </p>
+                    <a
+                        href="https://www.linkedin.com/in/marwan-rzzake-33270b3aa/"
+                        target="_blank"
+                        rel="noreferrer"
+                    >
+                        LinkedIn
+                    </a>
 
-                <p className="mt-2 text-gray-300">
-                  Casablanca, Morocco
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+                    <a
+                        href="https://github.com/Marwanerazzake"
+                        target="_blank"
+                        rel="noreferrer"
+                    >
+                        GitHub
+                    </a>
 
-      {/* CONTACT */}
-      <section
-        id="contact"
-        className="border-t border-white/10 px-6 py-32"
-      >
-        <div className="mx-auto max-w-4xl text-center">
-          <p className="text-sm uppercase tracking-[0.3em] text-blue-500">
-            05 / Contact
-          </p>
+                </div>
 
-          <h2 className="mt-6 text-5xl font-bold sm:text-7xl">
-            Let&apos;s connect.
-          </h2>
+            </section>
 
-          <p className="mx-auto mt-7 max-w-xl text-lg leading-8 text-gray-400">
-            Une opportunité, un projet ou simplement envie
-            d&apos;échanger autour de la data et de la technologie ?
-          </p>
 
-          <a
-            href="mailto:marwanrzaak55@gmail.com"
-            className="mt-10 inline-block rounded-full bg-white px-8 py-4 font-medium text-black transition duration-300 hover:-translate-y-1 hover:bg-gray-200"
-          >
-            Contact me →
-          </a>
+            {/* ================= FOOTER ================= */}
 
-          <div className="mt-10 flex justify-center gap-8 text-sm text-gray-500">
-            <a
-              href="https://www.linkedin.com/in/marwan-rzzake-33270b3aa/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="transition hover:text-white"
-            >
-              LinkedIn
-            </a>
+            <footer className="footer">
 
-            <a
-              href="https://github.com/Marwanerazzake"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="transition hover:text-white"
-            >
-              GitHub
-            </a>
+                <span>
+                    MAROUANE RAZZAKE © 2026
+                </span>
 
-            <a
-              href="mailto:marwanrzaak55@gmail.com"
-              className="transition hover:text-white"
-            >
-              Email
-            </a>
-          </div>
-        </div>
-      </section>
+                <span>
+                    DATA · BI · WEB
+                </span>
 
-      {/* FOOTER */}
-      <footer className="border-t border-white/10 px-6 py-8">
-        <div className="mx-auto flex max-w-6xl flex-col justify-between gap-3 text-sm text-gray-600 sm:flex-row">
-          <p>© 2026 Marouane Razzake</p>
-          <p>Built with Next.js</p>
-        </div>
-      </footer>
-    </main>
-  );
+                <span>
+                    BUILT WITH NEXT.JS
+                </span>
+
+            </footer>
+
+        </main>
+    );
 }
